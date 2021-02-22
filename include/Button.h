@@ -20,8 +20,8 @@ protected:
 
     Callback *arr;
 
-    uint8_t i;
     uint8_t maxArr;
+    uint8_t i;
     uint8_t pin;
     unsigned long start;
     bool invert;
