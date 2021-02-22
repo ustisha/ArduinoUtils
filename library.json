@@ -1,0 +1,21 @@
+{
+    "name": "ArduinoUtils",
+    "version": "0.1.0",
+    "description": "Libraries for Arduino project",
+    "keywords": "task, button, switch, pir, relay",
+    "repository":
+    {
+        "type": "git",
+        "url": "git@github.com:ustisha/ArduinoUtils.git"
+    },
+    "authors":
+    [
+        {
+            "name": "Dmitriy Deryabin",
+            "email": "dmitriy@ustisha.ru"
+        }
+    ],
+    "license": "MIT",
+    "frameworks": "arduino",
+    "platforms": "atmelavr"
+}
