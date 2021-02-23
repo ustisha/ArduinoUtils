@@ -1,6 +1,6 @@
 {
     "name": "ArduinoUtils",
-    "version": "0.1.10",
+    "version": "0.1.11",
     "description": "Libraries for Arduino project",
     "keywords": "task, button, switch, pir, relay, clock",
     "repository":
@@ -21,6 +21,7 @@
     "dependencies":
     {
         "Wire": "^1.0",
+        "paulstoffregen/Time": "^1.6",
         "paulstoffregen/DS1307RTC": "0.0.0-alpha"
     }
 }
