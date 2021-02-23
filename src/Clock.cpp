@@ -1,4 +1,4 @@
-#include "Clock.h"
+#include "../include/Clock.h"
 
 bool Clock::readTime() {
     if (RTC.read(currentTime)) {
