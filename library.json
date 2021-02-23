@@ -1,8 +1,8 @@
 {
     "name": "ArduinoUtils",
-    "version": "0.1.8",
+    "version": "0.1.9",
     "description": "Libraries for Arduino project",
-    "keywords": "task, button, switch, pir, relay",
+    "keywords": "task, button, switch, pir, relay, clock",
     "repository":
     {
         "type": "git",
@@ -20,6 +20,7 @@
     "platforms": "atmelavr",
     "dependencies":
     {
+        "paulstoffregen/OneWire": "^2.3",
         "paulstoffregen/DS1307RTC": "*"
     }
 }
