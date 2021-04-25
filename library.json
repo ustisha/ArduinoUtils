@@ -1,15 +1,13 @@
 {
     "name": "ArduinoUtils",
-    "version": "0.1.14",
+    "version": "0.1.15",
     "description": "Libraries for Arduino project",
     "keywords": "task, button, switch, pir, relay, clock",
-    "repository":
-    {
+    "repository": {
         "type": "git",
         "url": "git@github.com:ustisha/ArduinoUtils.git"
     },
-    "authors":
-    [
+    "authors": [
         {
             "name": "Dmitriy Deryabin",
             "email": "dmitriy@ustisha.ru"
@@ -17,13 +15,27 @@
     ],
     "license": "MIT",
     "frameworks": "arduino",
-    "platforms": "atmelavr",
-    "dependencies":
-    {
-        "Wire": "^1.0",
-        "SPI": "^1.0",
-        "arduino-libraries/Ethernet": "^2.0.0",
-        "paulstoffregen/Time": "^1.6",
-        "paulstoffregen/DS1307RTC": "0.0.0-alpha"
-    }
+    "platforms": ["atmelavr", "espressif8266"],
+    "dependencies": [
+        {
+            "owner": "Arduino",
+            "name": "Wire",
+            "version": "^1.0"
+        },
+        {
+            "owner": "Arduino",
+            "name": "SPI",
+            "version": "^1.0"
+        },
+        {
+            "owner": "paulstoffregen",
+            "name": "Time",
+            "version": "^1.6"
+        },
+        {
+            "owner": "paulstoffregen",
+            "name": "DS1307RTC",
+            "version": "0.0.0-alpha"
+        }
+    ]
 }
