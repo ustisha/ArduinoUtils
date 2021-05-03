@@ -12,7 +12,7 @@ add_executable(ArduinoUtils
         include/Format.h
         include/DebugLog.h
         include/HandlerInterface.h
-        include/PIR.h
+        include/Motion.h
         include/Relay.h
         include/Switch.h
         include/Task.h
@@ -20,7 +20,7 @@ add_executable(ArduinoUtils
         src/Clock.cpp
         src/Format.cpp
         src/HandlerInterface.cpp
-        src/PIR.cpp
+        src/Motion.cpp
         src/Relay.cpp
         src/Switch.cpp
         src/Task.cpp)

@@ -28,7 +28,7 @@ void printf_begin(void)
 #ifndef DEBUG_FREE_RAM
 #define DEBUG_FREE_RAM
 
-uint32 freeRAM()
+uint32_t freeRAM()
 {
 #if defined(ESP8266) || defined(ESP32)
     return system_get_free_heap_size();

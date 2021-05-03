@@ -7,17 +7,20 @@
 #include <DebugLog.h>
 #include <Switch.h>
 
-class PIR : public Switch {
+class Motion : public Switch {
 
 public:
-    explicit PIR(uint8_t btnPin, uint16_t detectDelay = 30, uint8_t max = 1, bool invt = true) :
+    explicit Motion(uint8_t btnPin, uint16_t detectDelay = 30, uint8_t max = 1, bool invt = true) :
             Switch(btnPin, max, invt),
-            detectDelay(detectDelay * 1000) {}
+            detectDelay(detectDelay * 1000) {
+        currentState = isPressed();
+    }
 
     void tick() override;
 
 protected:
     uint16_t detectDelay;
+    bool currentState;
 };
 
 

@@ -5,9 +5,10 @@
 
 #include <Arduino.h>
 #include <DebugLog.h>
+#include <NetInterface.h>
 #include "HandlerInterface.h"
 
-class Button {
+class Button : public NetInterface {
     static const uint8_t ANALOG_CONNECTED = 200;
 protected:
 
