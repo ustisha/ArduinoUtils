@@ -1,6 +1,6 @@
 {
     "name": "ArduinoUtils",
-    "version": "0.1.17",
+    "version": "0.1.18",
     "description": "Libraries for Arduino project",
     "keywords": "task, button, switch, pir, relay, clock",
     "repository": {

@@ -48,8 +48,7 @@ void Format::ip(char *formatted, IPAddress *addr) {
 }
 
 void Format::floatVar(char *formatted, float f) {
-    String fStr(f);
-    fStr.toCharArray(formatted, fStr.length() + 1);
+    dtostrf(f, 4, 2, formatted);
 }
 
 void Format::strpadl(char *formatted, uint16_t val, uint8_t width, const char *pad) {
