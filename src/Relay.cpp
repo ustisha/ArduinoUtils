@@ -16,12 +16,6 @@ void Relay::off() {
     IF_SERIAL_DEBUG(printf_P(PSTR("[Relay::off] Pin: %i\n"), pin));
 }
 
-void Relay::change() {
-    bool s = isOn();
-    s ? off() : on();
-    IF_SERIAL_DEBUG(printf_P(PSTR("[Relay::change] Pin: %i, From: %d, To: %d\n"), pin, (int) s, (int) isOn()));
-}
-
 bool Relay::isOn() {
     return invert == !digitalRead(pin);
 }

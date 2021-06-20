@@ -5,22 +5,22 @@
 
 #include <Arduino.h>
 #include <DebugLog.h>
+#include <RelayInterface.h>
 
-class Relay {
+class Relay : public RelayInterface
+{
 public:
     Relay(uint8_t p, bool invt = true);
 
-    void on();
+    virtual void on() override;
 
-    void off();
+    virtual void off() override;
 
-    void change();
-
-    bool isOn();
+    virtual bool isOn() override;
 
 protected:
-    uint8_t pin;
-    bool invert;
+    uint8_t pin{};
+    bool invert{};
 };
 
 #endif //RELAY_H
