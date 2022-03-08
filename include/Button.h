@@ -2,9 +2,10 @@
 #define BUTTON_H
 
 //#define SERIAL_DEBUG
-
+//#define VIBRO_ENABLED
 #include <Arduino.h>
 #include <DebugLog.h>
+#include "Vibro.h"
 #ifdef NETINTERFACE_H
 #include <NetInterface.h>
 #endif
@@ -15,7 +16,6 @@ class Button : public NetInterface {
 #else
 class Button {
 #endif
-    static const uint8_t ANALOG_CONNECTED = 200;
 protected:
 
     struct Callback {
@@ -26,12 +26,15 @@ protected:
     };
 
     Callback *arr;
-
     uint8_t maxArr;
     uint8_t i;
     uint8_t pin;
     unsigned long start;
     bool invert;
+#ifdef VIBRO_ENABLED
+    Vibro *vbr;
+    uint8_t *vibrated;
+#endif
 
     static auto sortByPress(const void *elem1, const void *elem2) -> int;
 
@@ -43,10 +46,23 @@ public:
 
     explicit Button(uint8_t btnPin, uint8_t max = 1, bool invt = true);
 
-    auto isPressed() -> bool;
+    auto isPressed() -> bool
+    {
+        return (!invert && digitalRead(pin) == LOW) || (invert && digitalRead(pin) == HIGH);
+    }
 
     auto addHandler(HandlerInterface *handlerInterface, uint8_t t = 0, uint16_t pressTime = PRESSTIME_DEFAULT, uint8_t i = 0) -> int8_t;
 
+#ifdef VIBRO_ENABLED
+    bool isVibrated(uint8_t callbackType);
+
+    void markVibrated(uint8_t callbackType);
+
+    void addVibro(Vibro *vibro)
+    {
+        vbr = vibro;
+    }
+#endif
     virtual void tick();
 };
 

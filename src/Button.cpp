@@ -6,10 +6,15 @@ Button::Button(uint8_t btnPin, uint8_t max, bool invt) : arr(new Callback[max]{}
                                                          i(0),
                                                          pin(btnPin),
                                                          start(0),
-                                                         invert(invt) {
-    digitalWrite(pin, invert ? HIGH : LOW);
-    pinMode(pin, INPUT);
-    IF_SERIAL_DEBUG(printf_P(PSTR("[Button] Pin: %i, Inversion: %d\n"), pin, (int) invert));
+                                                         invert(invt)
+#ifdef VIBRO_ENABLED
+                                                         ,
+                                                         vbr(nullptr),
+                                                         vibrated(new uint8_t[max]{0})
+#endif
+{
+    pinMode(pin, invert ? INPUT_PULLUP : INPUT);
+    IF_SERIAL_DEBUG(printf_P(PSTR("[Button] Pin: %i, Inversion: %d, Max: %i\n"), pin, (int) invert, maxArr));
 }
 
 auto Button::sortByPress(const void *elem1, const void *elem2) -> int {
@@ -30,17 +35,38 @@ auto Button::addHandler(HandlerInterface *handlerInterface, uint8_t t, uint16_t 
     return i++;
 }
 
-auto Button::isPressed() -> bool {
-    if (pin >= A0) {
-        return (!invert && analogRead(pin) < Button::ANALOG_CONNECTED) ||
-               (invert && analogRead(pin) > Button::ANALOG_CONNECTED);
-    } else {
-        return (!invert && digitalRead(pin) == 0) || (invert && digitalRead(pin) == 1);
+#ifdef VIBRO_ENABLED
+bool Button::isVibrated(uint8_t callbackType)
+{
+    for (uint8_t i = 0; i < maxArr; i++) {
+        if (vibrated[i] == callbackType) {
+            return true;
+        }
+    }
+    return false;
+}
+#endif
+
+#ifdef VIBRO_ENABLED
+void Button::markVibrated(uint8_t callbackType)
+{
+    for (uint8_t i = 0; i < maxArr; i++) {
+        if (!vibrated[i]) {
+            vibrated[i] = callbackType;
+            IF_SERIAL_DEBUG(printf_P(PSTR("[Button::markVibrated] Marked in: %i, Type: %i\n"), i, callbackType));
+            return;
+        }
     }
 }
+#endif
 
 void Button::tick() {
     unsigned long m = millis();
+#ifdef VIBRO_ENABLED
+    if (vbr != nullptr) {
+        vbr->tick();
+    }
+#endif
     if (start != 0 && start > m) {
         start = m;
     }
@@ -49,8 +75,42 @@ void Button::tick() {
         start = m;
         return;
     }
+#ifdef VIBRO_ENABLED
+    if (vbr != nullptr && isPressed() && start != 0) {
+        for (uint8_t i = 0; i < maxArr; i++) {
+            if (arr[i].handlerInterface != nullptr && (m - start) >= arr[i].press) {
+                if (!isVibrated(arr[i].type)) {
+                    markVibrated(arr[i].type);
+                    uint8_t cnt;
+                    switch (arr[i].press) {
+                        case PRESSTIME_1SEC:
+                            cnt = 2;
+                            break;
+                        case PRESSTIME_2SEC:
+                            cnt = 3;
+                            break;
+                        case PRESSTIME_4SEC:
+                            cnt = 4;
+                            break;
+                        default:
+                            cnt = 1;
+                    }
+                    IF_SERIAL_DEBUG(printf_P(PSTR("[Button::tick] Vibro called, count: %i\n"), cnt));
+                    vbr->vibrate(cnt);
+                }
+                break;
+            }
+        }
+    }
+#endif
     if (!isPressed() && start != 0) {
         IF_SERIAL_DEBUG(printf_P(PSTR("[Button::tick] Released\n")));
+#ifdef VIBRO_ENABLED
+        if (vbr != nullptr) {
+            vbr->reset();
+            memset(vibrated, 0, maxArr);
+        }
+#endif
         for (uint8_t i = 0; i < maxArr; i++) {
             if (arr[i].handlerInterface != nullptr && (m - start) >= arr[i].press) {
                 arr[i].handlerInterface->call(arr[i].type, arr[i].idx);
