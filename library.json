@@ -1,6 +1,6 @@
 {
     "name": "ArduinoUtils",
-    "version": "0.1.22",
+    "version": "0.1.23",
     "description": "Libraries for Arduino project",
     "keywords": "task, button, switch, pir, motion, actuator, relay",
     "repository": {

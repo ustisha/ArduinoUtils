@@ -2,16 +2,16 @@
 #define BUTTON_H
 
 //#define SERIAL_DEBUG
-//#define VIBRO_ENABLED
 #include <Arduino.h>
 #include <DebugLog.h>
-#include "Vibro.h"
-#ifdef NETINTERFACE_H
+#include <Config.h>
+#include <Vibro.h>
+#include <HandlerInterface.h>
+#ifndef RADIO_ENABLED
 #include <NetInterface.h>
 #endif
-#include "HandlerInterface.h"
 
-#ifdef NETINTERFACE_H
+#ifndef RADIO_ENABLED
 class Button : public NetInterface {
 #else
 class Button {
