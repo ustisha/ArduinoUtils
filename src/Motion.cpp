@@ -6,9 +6,6 @@ void Motion::tick() {
     }
     Switch::tick();
     if (currentState != isPressed()) {
-        currentState = isPressed();
-#ifdef NETINTERFACE_H
-        sendCommand(CMD_MOTION);
-#endif
+        setState(isPressed());
     }
 }

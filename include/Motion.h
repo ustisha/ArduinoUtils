@@ -18,6 +18,11 @@ public:
 
     void tick() override;
 
+    virtual void setState(bool state)
+    {
+        currentState = state;
+    }
+
 protected:
     uint16_t detectDelay;
     bool currentState;
