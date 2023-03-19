@@ -4,6 +4,5 @@
 #define SERVO_EASING
 #define RADIO_ENABLED
 #define VCC_ENABLED
-//#define VIBRO_ENABLED
 
 #endif //CONFIG_H

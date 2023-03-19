@@ -5,13 +5,13 @@
 
 #include <Arduino.h>
 #include <DebugLog.h>
-#include <Switch.h>
+#include <Button.h>
 
-class Motion : public Switch {
+class Motion : public Button {
 
 public:
     explicit Motion(uint8_t btnPin, uint16_t detectDelay = 30, uint8_t max = 1, bool invt = true) :
-            Switch(btnPin, max, invt),
+            Button(btnPin, max, invt),
             detectDelay(detectDelay * 1000) {
         currentState = isPressed();
     }
