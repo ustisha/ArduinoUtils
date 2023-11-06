@@ -3,9 +3,6 @@
 void Motion::tick()
 {
     unsigned long m = millis();
-    if (m < detectDelay) {
-        return;
-    }
     if (isPressed()) {
         if (start == 0) {
             start = m;

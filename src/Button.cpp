@@ -16,7 +16,7 @@ auto Button::sortByPress(const void *elem1, const void *elem2) -> int {
     return ((Callback *) elem1)->press < ((Callback *) elem2)->press ? 1 : -1;
 }
 
-auto Button::addHandler(HandlerInterface *handlerInterface, uint8_t t, uint16_t pressTime, uint8_t idx) -> int8_t {
+auto Button::addHandler(HandlerInterface *handlerInterface, uint8_t t, uint16_t pressTime, uint8_t idx) -> uint8_t {
     if (i >= maxArr) {
         IF_SERIAL_DEBUG(PSTR("[Button::addHandler] limit reached\n"));
         return -1;

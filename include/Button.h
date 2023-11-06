@@ -35,7 +35,7 @@ protected:
     static auto sortByPress(const void *elem1, const void *elem2) -> int;
 
 public:
-    static const uint16_t PRESSTIME_DEFAULT = 50;
+    static const uint16_t PRESSTIME_DEFAULT = 30;
     static const uint16_t PRESSTIME_1SEC = 1000;
     static const uint16_t PRESSTIME_2SEC = 2000;
     static const uint16_t PRESSTIME_4SEC = 4000;
@@ -47,7 +47,7 @@ public:
         return (!invert && digitalRead(pin) == HIGH) || (invert && digitalRead(pin) == LOW);
     }
 
-    auto addHandler(HandlerInterface *handlerInterface, uint8_t t = 0, uint16_t pressTime = PRESSTIME_DEFAULT, uint8_t i = 0) -> int8_t;
+    auto addHandler(HandlerInterface *handlerInterface, uint8_t t = 0, uint16_t pressTime = PRESSTIME_DEFAULT, uint8_t i = 0) -> uint8_t;
 
     virtual void tick();
 };

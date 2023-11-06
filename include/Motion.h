@@ -10,9 +10,8 @@
 class Motion : public Button {
 
 public:
-    explicit Motion(uint8_t btnPin, uint16_t detectDelay = 30, uint8_t max = 1, bool invt = true) :
-            Button(btnPin, max, invt),
-            detectDelay(detectDelay * 1000) {
+    explicit Motion(uint8_t btnPin, uint8_t max = 1, bool invt = true) :
+            Button(btnPin, max, invt) {
         currentState = isPressed();
     }
 
@@ -24,7 +23,6 @@ public:
     }
 
 protected:
-    uint16_t detectDelay;
     bool currentState;
 };
 
